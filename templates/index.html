@@ -1,0 +1,171 @@
+<html>
+<head>
+<title>Mental Health Chatbot</title>
+
+<style>
+body{
+    font-family: Arial;
+    background:#eef2f7;
+    text-align:center;
+    padding-top:60px;
+}
+
+.box{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    width:380px;
+    margin:auto;
+    box-shadow:0 0 20px rgba(0,0,0,0.1);
+}
+
+h2{
+    margin-bottom:20px;
+}
+
+input{
+    padding:12px;
+    width:65%;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+button{
+    padding:12px 15px;
+    background:#4CAF50;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#45a049;
+}
+
+.chatbox{
+    text-align:left;
+    height:200px;
+    overflow-y:auto;
+    border:1px solid #ddd;
+    padding:10px;
+    margin-bottom:15px;
+    border-radius:10px;
+    background:#fafafa;
+}
+
+.bot{
+    color:#333;
+    margin:5px 0;
+}
+
+.user{
+    color:#0066cc;
+    margin:5px 0;
+}
+
+.smallbtn{
+    margin-top:10px;
+    background:#888;
+}
+
+.smallbtn:hover{
+    background:#666;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+<h2>AI Mental Health Bot</h2>
+
+<div class="chatbox" id="chatbox"></div>
+
+<input id="msg" placeholder="How are you feeling?" onkeypress="enterSend(event)">
+<button onclick="send()">Send</button>
+<button onclick="voice()">🎤</button>
+
+<p id="emotion"></p>
+
+<button class="smallbtn" onclick="loadHistory()">View History</button>
+<button class="smallbtn" onclick="window.open('/graph')">Mood Graph</button>
+<button class="smallbtn" onclick="clearChat()">Clear Chat</button>
+
+</div>
+
+<script>
+
+function addMessage(text, type){
+let div=document.createElement("div");
+div.className=type;
+div.innerText=text;
+document.getElementById("chatbox").appendChild(div);
+document.getElementById("chatbox").scrollTop=9999;
+}
+
+function send(){
+let msg=document.getElementById("msg").value;
+if(!msg) return;
+
+addMessage("You: "+msg,"user");
+document.getElementById("msg").value="";
+
+addMessage("Bot is typing...","bot");
+
+fetch("/chat",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({message:msg})
+})
+.then(res=>res.json())
+.then(data=>{
+document.querySelector(".bot:last-child").remove();
+
+addMessage("Bot: "+data.reply,"bot");
+document.getElementById("emotion").innerText="Emotion: "+data.emotion;
+
+if(data.alert){
+alert(data.alert);
+}
+});
+}
+
+function enterSend(e){
+if(e.key==="Enter"){
+send();
+}
+}
+
+function voice(){
+const recognition = new webkitSpeechRecognition();
+recognition.lang="en-US";
+
+recognition.onresult=function(event){
+document.getElementById("msg").value=
+event.results[0][0].transcript;
+send();
+}
+
+recognition.start();
+}
+
+function loadHistory(){
+fetch("/history")
+.then(res=>res.json())
+.then(data=>{
+data.history.forEach(item=>{
+addMessage("You: "+item[0],"user");
+addMessage("Bot emotion: "+item[1],"bot");
+});
+});
+}
+
+function clearChat(){
+document.getElementById("chatbox").innerHTML="";
+}
+
+</script>
+
+</body>
+</html>
