@@ -85,9 +85,20 @@ def chat():
     emotion = predict_emotion(msg)
     reply = get_response(emotion)
 
-    save_chat(msg, emotion)
+    save_chat(msg, emotion, session["user"])
 
     alert = ""
+
+    msg = msg.lower()
+
+# Greeting handling
+    if msg in ["hi", "hello", "hey"]:
+        return jsonify({
+        "reply": "Hello! 😊 How are you feeling today?",
+        "emotion": "neutral",
+        "alert": ""
+    })
+
     if emotion in ["sad", "angry"]:
         alert = "⚠ Consider talking to someone you trust or a professional."
 

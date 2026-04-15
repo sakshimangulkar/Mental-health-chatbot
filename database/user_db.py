@@ -1,7 +1,7 @@
 import sqlite3
 
 def create_user_table():
-    conn = sqlite3.connect("users.db")
+    conn = sqlite3.connect("database/users.db")
     cur = conn.cursor()
 
     cur.execute("""
@@ -17,7 +17,7 @@ def create_user_table():
 
 
 def register_user(u,p):
-    conn = sqlite3.connect("users.db")
+    conn = sqlite3.connect("database/users.db")
     cur = conn.cursor()
 
     cur.execute("INSERT INTO users(username,password) VALUES(?,?)",(u,p))
@@ -27,7 +27,7 @@ def register_user(u,p):
 
 
 def login_user(u,p):
-    conn = sqlite3.connect("users.db")
+    conn = sqlite3.connect("database/users.db")
     cur = conn.cursor()
 
     cur.execute("SELECT * FROM users WHERE username=? AND password=?",(u,p))

@@ -91,3 +91,16 @@ def get_response(emotion):
     end = random.choice(followups)
 
     return f"{opener} {main} {support} {end} (Detected emotion: {emotion})" 
+
+def get_response(emotion):
+    if emotion == "sad":
+        return "I'm really sorry you're feeling sad 💙"
+
+    elif emotion == "happy":
+        return "That's great to hear! 😊"
+
+    elif emotion == "angry":
+        return "I understand you're feeling angry. Try to take a deep breath."
+
+    else:
+        return "I'm here to listen. Tell me more."
