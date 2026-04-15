@@ -121,10 +121,17 @@ def graph():
 # Chat History API
 @app.route("/history")
 def history():
+    if "user" not in session:
+        return redirect(url_for("login"))
+
     conn = sqlite3.connect("database/chat.db")
     cur = conn.cursor()
 
-    cur.execute("SELECT message, emotion FROM chats")
+    cur.execute(
+        "SELECT message, emotion FROM chats WHERE user = ?",
+        (session["user"],)
+    )
+
     data = cur.fetchall()
 
     conn.close()
