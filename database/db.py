@@ -16,6 +16,7 @@ def init_db():
     conn.commit()
     conn.close()
 
+
 def save_chat(message, emotion, user):
     conn = sqlite3.connect("database/chat.db")
     cur = conn.cursor()

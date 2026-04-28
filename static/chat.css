@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: Arial;
     background: #343541;
     color: white;
 }
@@ -10,44 +10,31 @@ body {
     height: 100vh;
 }
 
-/* SIDEBAR */
 .sidebar {
     width: 250px;
     background: #202123;
     padding: 20px;
-    display: flex;
-    flex-direction: column;
 }
 
-.sidebar h2 {
-    margin-bottom: 10px;
-}
-
-.logout {
-    margin-top: auto;
-    color: #ff4d4d;
-    text-decoration: none;
-}
-
-/* CHAT AREA */
 .chat-container {
     flex: 1;
     display: flex;
     flex-direction: column;
 }
 
-/* CHAT BOX */
 .chat-box {
     flex: 1;
     padding: 20px;
     overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
 }
 
-/* MESSAGES */
 .message {
     max-width: 60%;
-    padding: 12px;
-    margin: 10px;
+    padding: 10px;
+    margin: 5px;
     border-radius: 10px;
 }
 
@@ -61,26 +48,26 @@ body {
     align-self: flex-start;
 }
 
-/* INPUT */
 .input-area {
     display: flex;
-    padding: 15px;
+    padding: 10px;
     background: #40414f;
 }
 
 .input-area input {
     flex: 1;
     padding: 10px;
-    border: none;
-    border-radius: 8px;
 }
 
 .input-area button {
-    margin-left: 10px;
-    padding: 10px 20px;
-    background: #4facfe;
-    border: none;
-    border-radius: 8px;
-    color: white;
+    padding: 10px;
+}
+
+.history-item {
+    background: #2c2c2c;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 6px;
+    font-size: 12px;
     cursor: pointer;
 }

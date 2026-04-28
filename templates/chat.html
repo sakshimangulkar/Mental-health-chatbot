@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Chat | MindCare AI</title>
+    <title>Chat</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='chat.css') }}">
 </head>
 
@@ -10,24 +9,23 @@
 
 <div class="app">
 
-    <!-- SIDEBAR -->
     <div class="sidebar">
-        <h2>MindCare AI</h2>
-        <p>Welcome, {{ user }}</p>
+    <h2>MindCare AI</h2>
+    <p>{{ user }}</p>
 
-        <a href="/logout" class="logout">Logout</a>
-    </div>
+    <h4>History</h4>
+    <div id="history-box"></div>
 
-    <!-- CHAT AREA -->
+    <a href="/logout">Logout</a>
+</div>
+
     <div class="chat-container">
-
         <div id="chat-box" class="chat-box"></div>
 
         <div class="input-area">
-            <input type="text" id="message" placeholder="Type your message..." />
+            <input type="text" id="message" placeholder="Type message...">
             <button onclick="sendMessage()">Send</button>
         </div>
-
     </div>
 
 </div>
